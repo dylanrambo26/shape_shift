@@ -21,8 +21,7 @@ public class SwitchShape : MonoBehaviour
         {
             shapes[i] = transform.GetChild(i);
             rigidbodies[i] = shapes[i].GetComponent<Rigidbody>();
-            rigidbodies[i].constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX |
-                                         RigidbodyConstraints.FreezePositionZ;
+            rigidbodies[i].constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
             shapes[i].gameObject.SetActive(i == shapesIndex);
         }
     }

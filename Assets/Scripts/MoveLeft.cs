@@ -1,14 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveBackground : MonoBehaviour
+public class MoveLeft : MonoBehaviour
 {
 
     [SerializeField] private float speed;
 
     private bool isObstaclePattern = false;
-    
+    private SpawnObstaclePatterns spawnObstaclePatternsScript;
+
+    private void Start()
+    {
+        spawnObstaclePatternsScript = GameObject.Find("Obstacle Spawner").GetComponent<SpawnObstaclePatterns>();
+    }
+
     //Check if object is an obstacle pattern at instantiation
     void Awake()
     {
@@ -26,7 +33,14 @@ public class MoveBackground : MonoBehaviour
         //If the object is an obstacle pattern it will be destroyed past the threshold of x = -14
         if (isObstaclePattern && transform.position.x < -14)
         {
+            spawnObstaclePatternsScript.spawnTriggered = false;
             Destroy(gameObject);
+        }
+        
+        //Spawn the next obstacle pattern
+        if (isObstaclePattern && transform.position.x < 16)
+        {
+            spawnObstaclePatternsScript.SpawnNextPattern();
         }
     }
     

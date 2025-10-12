@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3992513818883904361}
   - component: {fileID: 3852768154538872858}
   - component: {fileID: 3474091178733149297}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Color Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
