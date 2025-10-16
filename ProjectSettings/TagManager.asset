@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Obstacle Layer
+  - Trapezoid
+  - Triangle
+  - Square
   layers:
   - Default
   - TransparentFX
@@ -17,10 +20,10 @@ TagManager:
   - trapezoid
   - triangle
   - obstacle
-  - 
-  - 
-  - 
-  - 
+  - breakable_wall
+  - color_gate_green
+  - color_gate_blue
+  - color_gate_orange
   - 
   - 
   - 

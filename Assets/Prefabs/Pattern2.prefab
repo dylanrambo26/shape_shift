@@ -111,6 +111,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Color Gate
       objectReference: {fileID: 0}
+    - target: {fileID: 3862052961215061552, guid: 48379193c9655794a967ad1e0cfca07f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

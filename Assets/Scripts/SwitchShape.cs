@@ -8,7 +8,9 @@ public class SwitchShape : MonoBehaviour
     private Transform[] shapes;
     private Rigidbody[] rigidbodies;
 
-    public bool isTriangle;
+    public bool isTriangle = false;
+    public bool isTrapezoid = false;
+    public bool isSquare = true;
     
     //Get the children objects and their respective rigidbodies to make smooth transitioning between shapes
     void Awake()
@@ -64,5 +66,24 @@ public class SwitchShape : MonoBehaviour
         nextRB.velocity = velocity;
         nextRB.angularVelocity = angularVelocity;
         shapesIndex = nextIndex;
+
+        if (nextChild.CompareTag("Trapezoid"))
+        {
+            isTrapezoid = true;
+            isSquare = !isTrapezoid;
+            isTriangle = !isTrapezoid;
+        }
+        else if (nextChild.CompareTag("Triangle"))
+        {
+            isTriangle = true;
+            isSquare = !isTriangle;
+            isTrapezoid = !isTriangle;
+        }
+        else if (nextChild.CompareTag("Square"))
+        {
+            isSquare = true;
+            isTrapezoid = !isSquare;
+            isTriangle = !isSquare;
+        }
     }
 }
