@@ -28,4 +28,19 @@ public class SpawnObstaclePatterns : MonoBehaviour
             patternIndex += 1;
         }
     }
+
+    public void ResetSpawner()
+    {
+        foreach (var obstaclePattern in GameObject.FindGameObjectsWithTag("Obstacle Layer"))
+        {
+            Destroy(obstaclePattern);
+        }
+
+        patternIndex = 0;
+        spawnTriggered = false;
+
+        currentPattern = obstaclePatterns[patternIndex];
+        Instantiate(currentPattern);
+        patternIndex += 1;
+    }
 }

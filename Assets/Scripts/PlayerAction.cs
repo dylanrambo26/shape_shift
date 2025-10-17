@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 // ReSharper disable InconsistentNaming
 
 public class PlayerAction : MonoBehaviour
@@ -13,10 +14,14 @@ public class PlayerAction : MonoBehaviour
     private float jumpForce = 7;
     private SwitchShape switchShapeScript;
     private ChangeColor changeColorScript;
+    private GameController _gameController;
+    private UIController _uiController;
+    private SpawnObstaclePatterns _spawnObstaclePatterns;
     private bool wallDashActivated = false;
     private int wallDashDuration = 3;
     public int numJumps = 0;
     private int maxJumps = 2;
+    public UnityEvent playerDeath;
     
     //Get rigidbody and set isOnGround to true
     void Start()
@@ -25,6 +30,13 @@ public class PlayerAction : MonoBehaviour
         isOnGround = true;
         switchShapeScript = GetComponentInParent<SwitchShape>();
         changeColorScript = GetComponentInParent<ChangeColor>();
+        _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        _uiController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
+        _spawnObstaclePatterns = GameObject.FindGameObjectWithTag("ObstacleSpawner").GetComponent<SpawnObstaclePatterns>();
+        
+        playerDeath.AddListener(_gameController.IncrementAttempts);
+        playerDeath.AddListener(_uiController.UpdateAttempts);
+        playerDeath.AddListener(_spawnObstaclePatterns.ResetSpawner);
     }
 
     //Single jump when left mouse is clicked and player is on the ground
@@ -90,7 +102,8 @@ public class PlayerAction : MonoBehaviour
         //not activated and collides with breakable object.
         if ((collision.gameObject.layer == 9) || (collision.gameObject.layer == 10 && !wallDashActivated))
         {
-            SceneManager.LoadScene("Level_1");
+            playerDeath.Invoke();
+            //SceneManager.LoadScene("Level_1");
         }
         //Otherwise, destroy breakable wall
         //TODO play animation here
@@ -105,7 +118,8 @@ public class PlayerAction : MonoBehaviour
         }
         else if (collision.gameObject.layer == 11 && changeColorScript.colorIndex != 0)
         {
-            SceneManager.LoadScene("Level_1");
+            playerDeath.Invoke();
+            //SceneManager.LoadScene("Level_1");
         }
         else if (collision.gameObject.layer == 12 && changeColorScript.colorIndex == 1)
         {
@@ -113,7 +127,8 @@ public class PlayerAction : MonoBehaviour
         }
         else if (collision.gameObject.layer == 12 && changeColorScript.colorIndex != 1)
         {
-            SceneManager.LoadScene("Level_1");
+            playerDeath.Invoke();
+            //SceneManager.LoadScene("Level_1");
         }
         else if (collision.gameObject.layer == 13 && changeColorScript.colorIndex == 2)
         {
@@ -121,7 +136,8 @@ public class PlayerAction : MonoBehaviour
         }
         else if (collision.gameObject.layer == 13 && changeColorScript.colorIndex != 3)
         {
-            SceneManager.LoadScene("Level_1");
+            playerDeath.Invoke();
+            //SceneManager.LoadScene("Level_1");
         }
     }
 }
