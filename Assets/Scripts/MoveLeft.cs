@@ -10,6 +10,7 @@ public class MoveLeft : MonoBehaviour
 
     private bool isObstaclePattern = false;
     private SpawnObstaclePatterns spawnObstaclePatternsScript;
+    private bool hasSpawnedNext = false;
 
     private void Start()
     {
@@ -38,9 +39,10 @@ public class MoveLeft : MonoBehaviour
         }
         
         //Spawn the next obstacle pattern
-        if (isObstaclePattern && transform.position.x < 16)
+        if (isObstaclePattern && !hasSpawnedNext && transform.position.x < 13)
         {
             spawnObstaclePatternsScript.SpawnNextPattern();
+            hasSpawnedNext = true;
         }
     }
     

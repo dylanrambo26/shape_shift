@@ -9,6 +9,8 @@ TagManager:
   - Trapezoid
   - Triangle
   - Square
+  - UIController
+  - ObstacleSpawner
   layers:
   - Default
   - TransparentFX
