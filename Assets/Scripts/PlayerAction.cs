@@ -22,6 +22,9 @@ public class PlayerAction : MonoBehaviour
     public int numJumps = 0;
     private int maxJumps = 2;
     public UnityEvent playerDeath;
+    private Transform parentStartTransform;
+    private Vector3 startPos;
+    private Quaternion startRotation;
     
     //Get rigidbody and set isOnGround to true
     void Start()
@@ -30,6 +33,10 @@ public class PlayerAction : MonoBehaviour
         isOnGround = true;
         switchShapeScript = GetComponentInParent<SwitchShape>();
         changeColorScript = GetComponentInParent<ChangeColor>();
+        parentStartTransform = GetComponentInParent<Transform>();
+        startPos = parentStartTransform.position;
+        startRotation = parentStartTransform.rotation;
+        
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         _uiController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
         _spawnObstaclePatterns = GameObject.FindGameObjectWithTag("ObstacleSpawner").GetComponent<SpawnObstaclePatterns>();
@@ -37,6 +44,7 @@ public class PlayerAction : MonoBehaviour
         playerDeath.AddListener(_gameController.IncrementAttempts);
         playerDeath.AddListener(_uiController.UpdateAttempts);
         playerDeath.AddListener(_spawnObstaclePatterns.ResetSpawner);
+        playerDeath.AddListener(ResetPlayer);
     }
 
     //Single jump when left mouse is clicked and player is on the ground
@@ -139,5 +147,11 @@ public class PlayerAction : MonoBehaviour
             playerDeath.Invoke();
             //SceneManager.LoadScene("Level_1");
         }
+    }
+
+    private void ResetPlayer()
+    {
+        parentStartTransform.position = startPos;
+        parentStartTransform.rotation = startRotation;
     }
 }
