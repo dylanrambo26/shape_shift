@@ -20,7 +20,7 @@ public class SpawnObstaclePatterns : MonoBehaviour
     //Spawn the next pattern in the obstacle list
     public void SpawnNextPattern()
     {
-        if (!spawnTriggered)
+        if (!spawnTriggered && patternIndex < obstaclePatterns.Count)
         {
             spawnTriggered = true;
             currentPattern = obstaclePatterns[patternIndex];
