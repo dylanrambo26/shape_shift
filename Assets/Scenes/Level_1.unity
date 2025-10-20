@@ -1168,13 +1168,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePatterns:
-  - {fileID: 7153623168108890135, guid: db46fa8728ac6ef46b622c588d2196ce, type: 3}
   - {fileID: 4609276126599977606, guid: cab615310dc8a2b4bab03f7f76c945a4, type: 3}
   - {fileID: 6633445868516238011, guid: 389d664a0e169f44fbfe7bef3f83cb66, type: 3}
   - {fileID: 3349984885890279680, guid: f6f3c8ae429bf524f945970b8fb258a4, type: 3}
   - {fileID: 247473323818770104, guid: 5215541bc0bd72f4d9247c3093538355, type: 3}
   - {fileID: 4541408626090154436, guid: df9e5ef4043ae0349a6af9d1ab4ad54d, type: 3}
   - {fileID: 1308488466133669440, guid: ed47d3e4d245d004bb8db69efc0ea033, type: 3}
+  - {fileID: 7153623168108890135, guid: db46fa8728ac6ef46b622c588d2196ce, type: 3}
   spawnTriggered: 0
 --- !u!1 &832575517
 GameObject:
