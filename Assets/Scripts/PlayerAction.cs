@@ -22,6 +22,7 @@ public class PlayerAction : MonoBehaviour
     public int numJumps = 0;
     private int maxJumps = 2;
     public UnityEvent playerDeath;
+    public UnityEvent levelComplete;
     private Transform parentStartTransform;
     private Vector3 startPos;
     private Quaternion startRotation;
@@ -45,6 +46,8 @@ public class PlayerAction : MonoBehaviour
         playerDeath.AddListener(_uiController.UpdateAttempts);
         playerDeath.AddListener(_spawnObstaclePatterns.ResetSpawner);
         playerDeath.AddListener(ResetPlayer);
+        
+        levelComplete.AddListener(_uiController.ShowLevelComplete);
     }
 
     //Single jump when left mouse is clicked and player is on the ground
@@ -127,7 +130,6 @@ public class PlayerAction : MonoBehaviour
         else if (collision.gameObject.layer == 11 && changeColorScript.colorIndex != 0)
         {
             playerDeath.Invoke();
-            //SceneManager.LoadScene("Level_1");
         }
         else if (collision.gameObject.layer == 12 && changeColorScript.colorIndex == 1)
         {
@@ -136,7 +138,6 @@ public class PlayerAction : MonoBehaviour
         else if (collision.gameObject.layer == 12 && changeColorScript.colorIndex != 1)
         {
             playerDeath.Invoke();
-            //SceneManager.LoadScene("Level_1");
         }
         else if (collision.gameObject.layer == 13 && changeColorScript.colorIndex == 2)
         {
@@ -145,7 +146,13 @@ public class PlayerAction : MonoBehaviour
         else if (collision.gameObject.layer == 13 && changeColorScript.colorIndex != 3)
         {
             playerDeath.Invoke();
-            //SceneManager.LoadScene("Level_1");
+        }
+        else if (collision.gameObject.layer == 14)
+        {
+            //TODO play an animation for level complete
+            levelComplete.Invoke();
+            Destroy(collision.gameObject);
+            gameObject.SetActive(false);
         }
     }
 
