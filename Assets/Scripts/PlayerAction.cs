@@ -11,7 +11,7 @@ public class PlayerAction : MonoBehaviour
 {
     private Rigidbody playerRB;
     private bool isOnGround;
-    private float jumpForce = 7;
+    private float jumpForce = 10;
     private SwitchShape switchShapeScript;
     private ChangeColor changeColorScript;
     private GameController _gameController;
@@ -48,6 +48,7 @@ public class PlayerAction : MonoBehaviour
         playerDeath.AddListener(ResetPlayer);
         
         levelComplete.AddListener(_uiController.ShowLevelComplete);
+        levelComplete.AddListener(_uiController.ShowMedal);
     }
 
     //Single jump when left mouse is clicked and player is on the ground

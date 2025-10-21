@@ -23,6 +23,7 @@ public class MoveLeft : MonoBehaviour
         if (gameObject.CompareTag("Obstacle Layer"))
         {
             isObstaclePattern = true;
+            speed = 8;
         }
     }
 
