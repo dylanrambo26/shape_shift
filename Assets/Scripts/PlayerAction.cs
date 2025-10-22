@@ -26,6 +26,8 @@ public class PlayerAction : MonoBehaviour
     private Transform parentStartTransform;
     private Vector3 startPos;
     private Quaternion startRotation;
+
+    [SerializeField] private Animator animator;
     
     //Get rigidbody and set isOnGround to true
     void Start()
@@ -74,6 +76,7 @@ public class PlayerAction : MonoBehaviour
     void SingleJump()
     {
         playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        animator.SetTrigger("Jump");
         isOnGround = false;
     }
     
@@ -161,5 +164,6 @@ public class PlayerAction : MonoBehaviour
     {
         parentStartTransform.position = startPos;
         parentStartTransform.rotation = startRotation;
+        animator.SetTrigger("Death");
     }
 }
