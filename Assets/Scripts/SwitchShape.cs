@@ -52,7 +52,7 @@ public class SwitchShape : MonoBehaviour
         
         //Assign current object and rigidbody properties
         Vector3 currentPosition = currentChild.position;
-        Quaternion rotation = currentChild.rotation;
+        //Quaternion rotation = currentChild.rotation;
         Vector3 velocity = currentRB.velocity;
         Vector3 angularVelocity = currentRB.angularVelocity;
         
@@ -62,9 +62,19 @@ public class SwitchShape : MonoBehaviour
     
         //Assign previous object's values to the next
         nextChild.position = currentPosition;
-        nextChild.rotation = rotation;
+        //nextChild.rotation = rotation;
         nextRB.velocity = velocity;
         nextRB.angularVelocity = angularVelocity;
+
+        if (nextChild.CompareTag("Triangle"))
+        {
+            nextChild.rotation = Quaternion.Euler(0f,0f,0f);
+        }
+        else if (nextChild.CompareTag("Square") || nextChild.CompareTag("Trapezoid"))
+        {
+            nextChild.rotation = Quaternion.Euler(0f,270f,0f);
+        }
+        
         shapesIndex = nextIndex;
 
         if (nextChild.CompareTag("Trapezoid"))

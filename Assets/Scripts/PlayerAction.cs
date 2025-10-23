@@ -94,6 +94,15 @@ public class PlayerAction : MonoBehaviour
         playerRB.velocity = new Vector3(playerRB.velocity.x, 0f, playerRB.velocity.z);
             
         playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        if (numJumps == 0)
+        {
+            animator.SetTrigger("Jump");
+        }
+        else
+        {
+            animator.ResetTrigger("Jump");
+            animator.SetTrigger("Jump");
+        }
         numJumps++;
         isOnGround = false;
         
