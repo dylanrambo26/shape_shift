@@ -122,6 +122,7 @@ public class PlayerAction : MonoBehaviour
     //TODO add number of attempts
     private void OnTriggerEnter(Collider collision)
     {   
+        //print("hit");
         //Reload scene if dash is activated and player collides with a non-breakable object. Also reload if dash is
         //not activated and collides with breakable object.
         if ((collision.gameObject.layer == 9) || (collision.gameObject.layer == 10 && !wallDashActivated))
@@ -133,7 +134,8 @@ public class PlayerAction : MonoBehaviour
         //TODO play animation here
         else if (collision.gameObject.layer == 10 && wallDashActivated)
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            collision.gameObject.GetComponentInParent<BreakableWall>()?.Break();
         }
         //TODO play animations here for color gates
         else if (collision.gameObject.layer == 11 && changeColorScript.colorIndex == 0)

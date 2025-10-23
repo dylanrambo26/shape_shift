@@ -11,6 +11,7 @@ TagManager:
   - Square
   - UIController
   - ObstacleSpawner
+  - Destructible
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - color_gate_blue
   - color_gate_orange
   - finish_line
-  - 
+  - Wall_Debris
   - 
   - 
   - 
