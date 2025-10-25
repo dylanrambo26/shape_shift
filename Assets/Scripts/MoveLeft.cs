@@ -7,7 +7,6 @@ public class MoveLeft : MonoBehaviour
 {
 
     [SerializeField] private float speed;
-
     private bool isObstaclePattern = false;
     private SpawnObstaclePatterns spawnObstaclePatternsScript;
     private bool hasSpawnedNext = false;
@@ -23,7 +22,7 @@ public class MoveLeft : MonoBehaviour
         if (gameObject.CompareTag("Obstacle Layer"))
         {
             isObstaclePattern = true;
-            speed = 8;
+            //speed = 4;
         }
     }
 

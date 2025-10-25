@@ -12,6 +12,7 @@ TagManager:
   - UIController
   - ObstacleSpawner
   - Destructible
+  - TutorialManager
   layers:
   - Default
   - TransparentFX
