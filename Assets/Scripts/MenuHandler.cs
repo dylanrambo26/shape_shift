@@ -4,22 +4,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEditor.Timeline.Actions;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class MenuHandler : MonoBehaviour
 {
     [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject levelOptions;
-    private Button[] startMenuButtons;
+    
+    //private Button[] startMenuButtons;
     //private TextMeshProUGUI[] buttonText;
     
     
     void Start()
     {
-        foreach (Button startMenuChildButton in startMenu.GetComponentsInChildren<Button>())
+        /*foreach (Button startMenuChildButton in startMenu.GetComponentsInChildren<Button>())
         {
             startMenuChildButton.onClick.AddListener(() => SelectOption(startMenuChildButton));
-        }
+        }*/
+        
+        AddButtonListeners(startMenu, false);
     }
 
     void SelectOption(Button buttonClicked)
@@ -29,6 +33,7 @@ public class MenuHandler : MonoBehaviour
         if (buttonText.text == "Levels")
         {
             SwitchMenus(true);
+            AddButtonListeners(levelOptions, true);
         }
         else if (buttonText.text == "Tutorial")
         {
@@ -45,5 +50,31 @@ public class MenuHandler : MonoBehaviour
         startMenu.SetActive(!isLevelOptions);
         levelOptions.SetActive(isLevelOptions);
     }
-    
+
+    void AddButtonListeners(GameObject parent, bool isLevelOptions)
+    {
+        if (!isLevelOptions)
+        {
+            foreach (Button menuChildButton in parent.GetComponentsInChildren<Button>())
+            {
+                menuChildButton.onClick.AddListener(() => SelectOption(menuChildButton));
+            }
+        }
+        else
+        {
+            foreach (Button menuChildButton in parent.GetComponentsInChildren<Button>())
+            {
+                menuChildButton.onClick.AddListener(() => SelectLevel(menuChildButton));
+            }
+        }
+    }
+
+    void SelectLevel(Button buttonClicked)
+    {
+        TextMeshProUGUI buttonText = buttonClicked.GetComponentInChildren<TextMeshProUGUI>();
+        if (buttonText.text == "1")
+        {
+            SceneManager.LoadScene("Level_1");
+        }
+    }
 }

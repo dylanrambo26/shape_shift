@@ -13,6 +13,13 @@ TagManager:
   - ObstacleSpawner
   - Destructible
   - TutorialManager
+  - Pattern1.1Tip
+  - Pattern1.2Tip
+  - Pattern2.1Tip
+  - Pattern2.2Tip
+  - Pattern3.1Tip
+  - Pattern3.2Tip
+  - TutorialController
   layers:
   - Default
   - TransparentFX

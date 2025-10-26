@@ -16,6 +16,10 @@ public class PlayerAction : MonoBehaviour
     private ChangeColor changeColorScript;
     private GameController _gameController;
     private UIController _uiController;
+
+    private TutorialController tutorialController;
+    private TutorialFinished tutorialFinished;
+    
     private SpawnObstaclePatterns _spawnObstaclePatterns;
     private bool wallDashActivated = false;
     private int wallDashDuration = 3;
@@ -40,17 +44,30 @@ public class PlayerAction : MonoBehaviour
         startPos = parentStartTransform.position;
         startRotation = parentStartTransform.rotation;
         
-        _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        _uiController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
-        _spawnObstaclePatterns = GameObject.FindGameObjectWithTag("ObstacleSpawner").GetComponent<SpawnObstaclePatterns>();
         
-        playerDeath.AddListener(_gameController.IncrementAttempts);
-        playerDeath.AddListener(_uiController.UpdateAttempts);
+        _spawnObstaclePatterns = GameObject.FindGameObjectWithTag("ObstacleSpawner").GetComponent<SpawnObstaclePatterns>();
         playerDeath.AddListener(_spawnObstaclePatterns.ResetSpawner);
         playerDeath.AddListener(ResetPlayer);
         
-        levelComplete.AddListener(_uiController.ShowLevelComplete);
-        levelComplete.AddListener(_uiController.ShowMedal);
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            tutorialController = GameObject.FindGameObjectWithTag("TutorialController").GetComponent<TutorialController>();
+            tutorialFinished = GameObject.FindGameObjectWithTag("UIController").GetComponent<TutorialFinished>();
+            playerDeath.AddListener(tutorialController.IncrementAttempts);
+            playerDeath.AddListener(tutorialFinished.UpdateTutorialAttempts);
+            levelComplete.AddListener(tutorialFinished.ShowTutorialComplete);
+        }
+        else if (SceneManager.GetActiveScene().name == "Level_1")
+        {
+            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+            _uiController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
+            
+            playerDeath.AddListener(_gameController.IncrementAttempts);
+            playerDeath.AddListener(_uiController.UpdateAttempts);
+            
+            levelComplete.AddListener(_uiController.ShowLevelComplete);
+            levelComplete.AddListener(_uiController.ShowMedal);
+        }
     }
 
     //Single jump when left mouse is clicked and player is on the ground

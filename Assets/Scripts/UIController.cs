@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Unity.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {   
@@ -54,5 +56,10 @@ public class UIController : MonoBehaviour
         {
             bronzeMedal.SetActive(true);
         }
+    }
+
+    public void ReturnToStartMenu()
+    {
+        SceneManager.LoadScene("Title_Screen");
     }
 }
