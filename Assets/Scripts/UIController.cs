@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using Unity.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {   
@@ -14,6 +15,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject goldMedal;
     [SerializeField] private GameObject silverMedal;
     [SerializeField] private GameObject bronzeMedal;
+
+    [SerializeField] private GameObject returnToStartButton;
     private GameObject medalsParent;
 
     private TextMeshProUGUI totalAttemptsText;
@@ -36,6 +39,11 @@ public class UIController : MonoBehaviour
     {
         levelCompleteObject.SetActive(true);
         totalAttemptsObject.SetActive(false);
+
+        MoveLeft.isPaused = true;
+        BackgroundScroller.isPaused = true;
+        
+        returnToStartButton.SetActive(true);
     }
 
     public void ShowMedal()

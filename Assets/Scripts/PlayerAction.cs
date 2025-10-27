@@ -16,6 +16,7 @@ public class PlayerAction : MonoBehaviour
     private ChangeColor changeColorScript;
     private GameController _gameController;
     private UIController _uiController;
+    private PlayerExplosion playerExplosion;
 
     private TutorialController tutorialController;
     private TutorialFinished tutorialFinished;
@@ -41,6 +42,8 @@ public class PlayerAction : MonoBehaviour
         switchShapeScript = GetComponentInParent<SwitchShape>();
         changeColorScript = GetComponentInParent<ChangeColor>();
         parentStartTransform = GetComponentInParent<Transform>();
+        playerExplosion = GetComponent<PlayerExplosion>();
+        
         startPos = parentStartTransform.position;
         startRotation = parentStartTransform.rotation;
         
@@ -48,6 +51,7 @@ public class PlayerAction : MonoBehaviour
         _spawnObstaclePatterns = GameObject.FindGameObjectWithTag("ObstacleSpawner").GetComponent<SpawnObstaclePatterns>();
         playerDeath.AddListener(_spawnObstaclePatterns.ResetSpawner);
         playerDeath.AddListener(ResetPlayer);
+        playerDeath.AddListener(playerExplosion.ExplodePlayer);
         
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {

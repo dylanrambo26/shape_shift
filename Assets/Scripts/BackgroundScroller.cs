@@ -10,6 +10,8 @@ public class BackgroundScroller : MonoBehaviour
     private Transform sprite1;
     private Transform sprite2;
     private float spriteWidth;
+
+    public static bool isPaused = false;
     
     //private Vector3 startPos;
     //rivate float worldUnitSizeX;
@@ -29,6 +31,10 @@ public class BackgroundScroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isPaused)
+        {
+            return;
+        }
         sprite1.position += Vector3.left * (scrollSpeed * Time.deltaTime);
         sprite2.position += Vector3.left * (scrollSpeed * Time.deltaTime);
 

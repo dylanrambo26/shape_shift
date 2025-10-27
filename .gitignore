@@ -101,3 +101,6 @@ InitTestScene*.unity*
 
 #Rider IDE
 /.idea
+
+#2D Space Kit Package Import
+/Assets/2D Space Kit/

@@ -10,6 +10,7 @@ public class MoveLeft : MonoBehaviour
     private bool isObstaclePattern = false;
     private SpawnObstaclePatterns spawnObstaclePatternsScript;
     private bool hasSpawnedNext = false;
+    public static bool isPaused = false;
 
     private void Start()
     {
@@ -29,6 +30,10 @@ public class MoveLeft : MonoBehaviour
     
     void FixedUpdate()
     {
+        if (isPaused)
+        {
+            return;
+        }
         //Move gameObject left
         transform.Translate(Vector3.left * (Time.deltaTime * speed));
         //If the object is an obstacle pattern it will be destroyed past the threshold of x = -14
@@ -45,5 +50,4 @@ public class MoveLeft : MonoBehaviour
             hasSpawnedNext = true;
         }
     }
-    
 }
