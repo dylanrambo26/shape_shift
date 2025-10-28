@@ -306,9 +306,12 @@ public class PlayerAction : MonoBehaviour
     {
         parentStartTransform.position = startPos;
         parentStartTransform.rotation = startRotation;
-        backgroundBlue.FadeColor(true);
-        backgroundPurple.FadeColor(false);
-        backgroundRed.FadeColor(false);
+        if (SceneManager.GetActiveScene().name == "Level_1")
+        {
+            backgroundBlue.FadeColor(true);
+            backgroundPurple.FadeColor(false);
+            backgroundRed.FadeColor(false);
+        }
         animator.SetTrigger("Death");
     }
     
