@@ -38,6 +38,7 @@ public class PlayerAction : MonoBehaviour
     private readonly int maxJumps = 2;
     private bool isOnGround;
     private readonly float jumpForce = 10;
+    private bool hasDied = false;
     
     //Parent Transform properties for level reset
     private Transform parentStartTransform;
@@ -181,8 +182,12 @@ public class PlayerAction : MonoBehaviour
         //not activated and collides with breakable object.
         if ((collision.gameObject.layer == 9) || (collision.gameObject.layer == 10 && !wallDashActivated))
         {
-            playerDeath.Invoke();
-            //SceneManager.LoadScene("Level_1");
+            if (!hasDied)
+            {
+                hasDied = true;
+                playerDeath.Invoke();
+                StartCoroutine(EnableCollisionAfterDeath());
+            }
         }
         //Otherwise, destroy breakable wall
         else if (collision.gameObject.layer == 10 && wallDashActivated)
@@ -301,6 +306,9 @@ public class PlayerAction : MonoBehaviour
     {
         parentStartTransform.position = startPos;
         parentStartTransform.rotation = startRotation;
+        backgroundBlue.FadeColor(true);
+        backgroundPurple.FadeColor(false);
+        backgroundRed.FadeColor(false);
         animator.SetTrigger("Death");
     }
     
@@ -308,5 +316,12 @@ public class PlayerAction : MonoBehaviour
     private void PlayerExplosion()
     {
         playerAudio.PlayOneShot(playerExplosionSound, 1f);
+    }
+    
+    //Ensure that totalAttempts isn't incremented during pause after explosion
+    private IEnumerator EnableCollisionAfterDeath()
+    {
+        yield return new WaitForSeconds(3f);
+        hasDied = false;
     }
 }
