@@ -17,13 +17,14 @@ public class PlayFireballAnimation : MonoBehaviour
 
     public void PlayAnimation()
     {
-        if (animator != null)
+        animator.SetTrigger("ColorGateHit");
+        /*if (animator != null)
         {
             animator.Play("Fireball_Expand", -1, 0f);
         }
         else
         {
             Debug.LogError("Animator reference is null on " + gameObject.name);
-        }
+        }*/
     }
 }

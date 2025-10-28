@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &509364933270868846
 Transform:
   m_ObjectHideFlags: 0
@@ -119,13 +119,14 @@ GameObject:
   - component: {fileID: 2323564033755595442}
   - component: {fileID: 1397909418460957567}
   - component: {fileID: 8955923248427756631}
+  - component: {fileID: 6442569054427678841}
   m_Layer: 0
   m_Name: Orange Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &994805632810621385
 Transform:
   m_ObjectHideFlags: 0
@@ -224,3 +225,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6442569054427678841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6950057874892768435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fafaaea6f18d774fa38bc7176d9a921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

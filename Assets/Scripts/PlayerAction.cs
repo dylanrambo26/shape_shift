@@ -47,6 +47,21 @@ public class PlayerAction : MonoBehaviour
     //Animator for current shape
     [SerializeField] private Animator animator;
     
+    //Player Audio
+    private AudioSource playerAudio;
+    [SerializeField] private GameObject levelCompleteMusic;
+
+    [SerializeField] private AudioClip singleJumpSound;
+
+    [SerializeField] private AudioClip doubleJumpSound;
+
+    [SerializeField] private AudioClip dashLoadedSound;
+
+    [SerializeField] private AudioClip wallBreakingSound;
+
+    [SerializeField] private AudioClip playerExplosionSound;
+
+    [SerializeField] private AudioClip gateEnteredSound;
     //Get components from hierarchy and add event listeners for playerDeath and levelComplete
     void Start()
     {
@@ -62,6 +77,9 @@ public class PlayerAction : MonoBehaviour
         
         playerDeath.AddListener(ResetPlayer);
         playerDeath.AddListener(playerExplosion.ExplodePlayer);
+        playerDeath.AddListener(PlayerExplosion);
+
+        playerAudio = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
         
         //Used specifically for the tutorial scene
         if (SceneManager.GetActiveScene().name == "Tutorial")
@@ -110,6 +128,7 @@ public class PlayerAction : MonoBehaviour
     //Jump method using rigidbody AddForce, rotation animation for square
     void SingleJump()
     {
+        playerAudio.PlayOneShot(singleJumpSound, 1f);
         playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         animator.SetTrigger("Jump");
         isOnGround = false;
@@ -118,6 +137,7 @@ public class PlayerAction : MonoBehaviour
     //Coroutine for dashing through breakable walls with the trapezoid object
     IEnumerator WallDash()
     {
+        playerAudio.PlayOneShot(dashLoadedSound, 1f);
         wallDashActivated = true;
         yield return new WaitForSeconds(wallDashDuration);
         wallDashActivated = false;
@@ -126,6 +146,7 @@ public class PlayerAction : MonoBehaviour
     //Jump once, and then only once again until numJumps reaches 0 again.
     void DoubleJump()
     {
+        playerAudio.PlayOneShot(doubleJumpSound, 1f);
         playerRB.velocity = new Vector3(playerRB.velocity.x, 0f, playerRB.velocity.z);
             
         playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -166,6 +187,7 @@ public class PlayerAction : MonoBehaviour
         //Otherwise, destroy breakable wall
         else if (collision.gameObject.layer == 10 && wallDashActivated)
         {
+            playerAudio.PlayOneShot(wallBreakingSound, 1f);
             collision.gameObject.GetComponentInParent<BreakableWall>()?.Break();
         }
         //If the collision is with a green color gate and the player is green, play the color gate animation and destroy the color gate
@@ -183,18 +205,11 @@ public class PlayerAction : MonoBehaviour
                 var anim = fireball.GetComponent<PlayFireballAnimation>();
                 if (anim != null)
                 {
-                    anim.PlayAnimation(); // No coroutine if PlayAnimation() isn’t one
-                }
-                else
-                {
-                    Debug.LogWarning("PlayFireballAnimation script missing on: " + fireball.name);
+                    playerAudio.PlayOneShot(gateEnteredSound, 0.5f);
+                    anim.PlayAnimation();
                 }
             }
-            else
-            {
-                Debug.LogError("Could not find child 'Green Fireball' under " + collision.gameObject.name);
-            }
-
+            
             Destroy(collision.gameObject, 1f);
         }
         //Player is not green, invoke playerDeath listeners
@@ -205,7 +220,25 @@ public class PlayerAction : MonoBehaviour
         //If the collision is with a blue color gate and the player is blue, play the color gate animation and destroy the color gate
         else if (collision.gameObject.layer == 12 && changeColorScript.colorIndex == 1)
         {
-            Destroy(collision.gameObject);
+            var mesh = collision.gameObject.GetComponentInChildren<MeshRenderer>();
+            if (mesh != null)
+                mesh.enabled = false;
+
+            Transform fireball = collision.gameObject.transform.Find("Blue Fireball");
+            if (fireball != null)
+            {
+                print("found blue");
+                fireball.gameObject.SetActive(true);
+
+                var anim = fireball.GetComponent<PlayFireballAnimation>();
+                if (anim != null)
+                {
+                    playerAudio.PlayOneShot(gateEnteredSound, 0.5f);
+                    anim.PlayAnimation();
+                }
+            }
+            
+            Destroy(collision.gameObject, 1f);
         }
         //Player is not blue, invoke playerDeath listeners
         else if (collision.gameObject.layer == 12 && changeColorScript.colorIndex != 1)
@@ -215,7 +248,25 @@ public class PlayerAction : MonoBehaviour
         //If the collision is with an orange color gate and the player is orange, play the color gate animation and destroy the color gate
         else if (collision.gameObject.layer == 13 && changeColorScript.colorIndex == 2)
         {
-            Destroy(collision.gameObject);
+            var mesh = collision.gameObject.GetComponentInChildren<MeshRenderer>();
+            if (mesh != null)
+                mesh.enabled = false;
+
+            Transform fireball = collision.gameObject.transform.Find("Orange Fireball");
+            if (fireball != null)
+            {
+                print("found orange");
+                fireball.gameObject.SetActive(true);
+
+                var anim = fireball.GetComponent<PlayFireballAnimation>();
+                if (anim != null)
+                {
+                    playerAudio.PlayOneShot(gateEnteredSound, 0.5f);
+                    anim.PlayAnimation();
+                }
+            }
+            
+            Destroy(collision.gameObject, 1f);
         }
         //Player is not orange, invoke playerDeath listeners
         else if (collision.gameObject.layer == 13 && changeColorScript.colorIndex != 3)
@@ -225,7 +276,7 @@ public class PlayerAction : MonoBehaviour
         //If player collides with the finish line at the end of the level, invoke level complete listeners
         else if (collision.gameObject.layer == 14)
         {
-            //TODO play an animation for level complete
+            levelCompleteMusic.SetActive(true);
             levelComplete.Invoke();
             Destroy(collision.gameObject);
             gameObject.SetActive(false);
@@ -245,5 +296,11 @@ public class PlayerAction : MonoBehaviour
         parentStartTransform.position = startPos;
         parentStartTransform.rotation = startRotation;
         animator.SetTrigger("Death");
+    }
+    
+    //Sound Effect Methods
+    private void PlayerExplosion()
+    {
+        playerAudio.PlayOneShot(playerExplosionSound, 1f);
     }
 }

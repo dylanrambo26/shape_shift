@@ -23,6 +23,8 @@ TagManager:
   - Far_Background_Blue
   - Far_Background_Purple
   - Far_Background_Red
+  - Audio
+  - LevelCompleteMusic
   layers:
   - Default
   - TransparentFX

@@ -13,10 +13,16 @@ public class TutorialFinished : MonoBehaviour
     
     private TextMeshProUGUI totalAttemptsText;
     private TutorialController tutorialController;
+
+    private AudioSource playerAudio;
+    [SerializeField] private AudioClip tutorialCompleteSound;
+    
     void Start()
     {
         tutorialController = GameObject.FindGameObjectWithTag("TutorialController").GetComponent<TutorialController>();
         totalAttemptsText = totalAttemptsObject.GetComponent<TextMeshProUGUI>();
+
+        playerAudio = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
     }
 
     //Update the UI with the correct number of attempts from the tutorial controller
@@ -28,6 +34,7 @@ public class TutorialFinished : MonoBehaviour
     //Show the tutorial complete text and return to start menu button when finished. Pause movement in other scripts
     public void ShowTutorialComplete()
     {
+        playerAudio.PlayOneShot(tutorialCompleteSound, 1f);
         tutorialCompleteObject.SetActive(true);
         totalAttemptsObject.SetActive(false);
 

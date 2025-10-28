@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BackgroundColorChanger : MonoBehaviour
@@ -10,7 +11,7 @@ public class BackgroundColorChanger : MonoBehaviour
 
     [SerializeField] private float colorChangeSpeed = 2f;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -26,11 +27,12 @@ public class BackgroundColorChanger : MonoBehaviour
 
     public void FadeColor(bool fadeIn)
     {
-        print("change");
+        
         var color = spriteRenderer.color;
         if (fadeIn)
         {
             targetColor = new Color(color.r, color.g, color.b, 1);
+            print("change to " + targetColor);
         }
         else
         {

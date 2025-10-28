@@ -12,16 +12,20 @@ public class MenuHandler : MonoBehaviour
     //Title_Screen buttons and the levelOptions buttons
     [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject levelOptions;
-    
+
+    private AudioSource playerAudio;
+    [SerializeField] private AudioClip buttonPress;
     void Start()
     {
         //Add listeners to the start menu buttons at start
         AddButtonListeners(startMenu, false);
+        playerAudio = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
     }
     
     //Navigate to the right place depending on what was clicked. If levels was clicked, switch the menus, If tutorial was clicked, play the tutorial, otherwise exit.
     void SelectOption(Button buttonClicked)
     {
+        playerAudio.PlayOneShot(buttonPress, 1f);
         TextMeshProUGUI buttonText = buttonClicked.GetComponentInChildren<TextMeshProUGUI>();
         if (buttonText.text == "Levels")
         {
@@ -67,6 +71,7 @@ public class MenuHandler : MonoBehaviour
     //Only one level to be selected currently, but can be expanded for more.
     void SelectLevel(Button buttonClicked)
     {
+        playerAudio.PlayOneShot(buttonPress,1f);
         TextMeshProUGUI buttonText = buttonClicked.GetComponentInChildren<TextMeshProUGUI>();
         if (buttonText.text == "1")
         {
