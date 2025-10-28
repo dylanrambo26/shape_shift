@@ -8,6 +8,8 @@ public class TutorialPause : MonoBehaviour
     public bool isPaused = false;
 
     [SerializeField] private GameObject tipUIObject;
+    
+    //Given a string as the tip message, display the tip text on screen and pause movement.
     public void ShowTip(string message)
     {
         if (tipUIObject != null)
@@ -18,7 +20,8 @@ public class TutorialPause : MonoBehaviour
 
         PauseTutorial();
     }
-
+    
+    //Hide the tip text and resume
     public void HideTip()
     {
         if (tipUIObject != null)
@@ -28,13 +31,15 @@ public class TutorialPause : MonoBehaviour
 
         ResumeTutorial();
     }
-
+    
+    //Pause all movement
     private void PauseTutorial()
     {
         Time.timeScale = 0f;
         isPaused = true;
     }
-
+    
+    //Resume all movement
     private void ResumeTutorial()
     {
         Time.timeScale = 1f;

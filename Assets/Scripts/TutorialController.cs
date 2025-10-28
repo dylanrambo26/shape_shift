@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TutorialController : MonoBehaviour
 {
+    //Same script as GameController in level 1
     public int TotalAttempts { get; private set; } = 1;
 
     public void IncrementAttempts()

@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-
+    
     [SerializeField] private float speed;
+    
     private bool isObstaclePattern = false;
     private SpawnObstaclePatterns spawnObstaclePatternsScript;
     private bool hasSpawnedNext = false;
+    
+    //Used to pause any object that is using MoveLeft
     public static bool isPaused = false;
 
     private void Start()
@@ -23,13 +26,12 @@ public class MoveLeft : MonoBehaviour
         if (gameObject.CompareTag("Obstacle Layer"))
         {
             isObstaclePattern = true;
-            //speed = 4;
         }
     }
-
     
     void FixedUpdate()
     {
+        //Pause if another script has set isPaused to true.
         if (isPaused)
         {
             return;

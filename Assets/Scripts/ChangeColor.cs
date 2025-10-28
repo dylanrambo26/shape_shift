@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class ChangeColor : MonoBehaviour
 {
+    //Preset colors to match with color gates
     [SerializeField] private Material[] colors;
 
     public int colorIndex = -1;
-
-    // Start is called before the first frame update
+    
     private void Start()
     {
         ChangeActiveColor();
     }
 
-    // Update is called once per frame
+    //If right-click is clicked, change the player's color
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
@@ -24,13 +24,15 @@ public class ChangeColor : MonoBehaviour
         }
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     private void ChangeActiveColor()
     {
+        //Change next index to the next index in the list, if it reaches index 2, wrap back to 0
         int nextIndex = (colorIndex + 1) % transform.childCount;
         
         //Include inactive children shape objects when recoloring
         Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
+        
+        //Change all player shapes to the current selected color
         foreach (Renderer r in renderers)
         {
             r.material = colors[nextIndex];

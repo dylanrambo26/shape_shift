@@ -42,7 +42,7 @@ public class SwitchShape : MonoBehaviour
     {   
         //Get the next index for the next shape to switch to and get the current shape along with the next
         int nextIndex = (shapesIndex + 1) % transform.childCount;
-        //TODO add check for triangle index for double jump
+        
         Transform currentChild = transform.GetChild(shapesIndex);
         Transform nextChild = transform.GetChild(nextIndex);
         
@@ -52,7 +52,6 @@ public class SwitchShape : MonoBehaviour
         
         //Assign current object and rigidbody properties
         Vector3 currentPosition = currentChild.position;
-        //Quaternion rotation = currentChild.rotation;
         Vector3 velocity = currentRB.velocity;
         Vector3 angularVelocity = currentRB.angularVelocity;
         
@@ -62,10 +61,10 @@ public class SwitchShape : MonoBehaviour
     
         //Assign previous object's values to the next
         nextChild.position = currentPosition;
-        //nextChild.rotation = rotation;
         nextRB.velocity = velocity;
         nextRB.angularVelocity = angularVelocity;
 
+        //Set the rotations back to their starter rotations, for triangle it is Euler(0,0,0). For the two others it is Euler(0,270f,0) because they start at a rotation of 90 degrees.
         if (nextChild.CompareTag("Triangle"))
         {
             nextChild.rotation = Quaternion.Euler(0f,0f,0f);
@@ -76,7 +75,8 @@ public class SwitchShape : MonoBehaviour
         }
         
         shapesIndex = nextIndex;
-
+        
+        //Set the booleans to the correct values based on the active shape. These values are used in PlayerAction to compare collisions.
         if (nextChild.CompareTag("Trapezoid"))
         {
             isTrapezoid = true;

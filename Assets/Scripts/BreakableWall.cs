@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BreakableWall : MonoBehaviour
 {
+    //Changeable private values for explosion animation
     [SerializeField] private float explosionForce = 200f;
 
     [SerializeField] private float explosionRadius = 5f;
@@ -14,24 +15,21 @@ public class BreakableWall : MonoBehaviour
 
     public void Break()
     {
+        //For each fragment in the breakable wall add an explosion force to appear broken
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
             rb.isKinematic = false;
             rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             rb.AddTorque(Random.insideUnitSphere * torqueForce);
-
-            /*Collider collider = rb.GetComponent<Collider>();
-            if (collider != null)
-            {
-                collider.enabled = false;
-            }*/
         }
-
+        
+        //Change each brick's layer to Wall_Debris to ensure no interference with the player after collision
         foreach (Transform brick in transform)
         {
             brick.gameObject.layer = LayerMask.NameToLayer("Wall_Debris");
         }
         
+        //Clean up debris
         Destroy(gameObject, destroyDelay);
     }
 }

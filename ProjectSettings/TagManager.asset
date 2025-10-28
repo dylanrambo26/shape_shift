@@ -20,6 +20,9 @@ TagManager:
   - Pattern3.1Tip
   - Pattern3.2Tip
   - TutorialController
+  - Far_Background_Blue
+  - Far_Background_Purple
+  - Far_Background_Red
   layers:
   - Default
   - TransparentFX
@@ -37,7 +40,7 @@ TagManager:
   - color_gate_orange
   - finish_line
   - Wall_Debris
-  - 
+  - Purple_Color_Trigger
   - 
   - 
   - 

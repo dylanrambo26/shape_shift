@@ -8,7 +8,8 @@ public class TipCollisionChecker : MonoBehaviour
     {
         tutorialPauseScript = GameObject.FindGameObjectWithTag("TutorialManager").GetComponent<TutorialPause>();
     }
-
+    
+    //Continue tutorial after a tip when the player presses enter
     private void Update()
     {
         if (tutorialPauseScript.isPaused)
@@ -19,10 +20,10 @@ public class TipCollisionChecker : MonoBehaviour
             }
         }
     }
-
+    
+    //Play the specific tip based on the trigger hit
     private void OnTriggerEnter(Collider other)
     {
-        //String patternName = other.transform.parent.gameObject.name;
         String tip = other.gameObject.tag;
         switch (tip)
         {
