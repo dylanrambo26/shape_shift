@@ -97,7 +97,7 @@ public class PlayerAction : MonoBehaviour
             uiController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
             backgroundBlue = GameObject.FindGameObjectWithTag("Far_Background_Blue").GetComponent<BackgroundColorChanger>();
             backgroundPurple = GameObject.FindGameObjectWithTag("Far_Background_Purple").GetComponent<BackgroundColorChanger>();
-            //backgroundRed = GameObject.FindGameObjectWithTag("Far_Background_Red").GetComponent<BackgroundColorChanger>();
+            backgroundRed = GameObject.FindGameObjectWithTag("Far_Background_Red").GetComponent<BackgroundColorChanger>();
             backgroundBlue.FadeColor(true);
             playerDeath.AddListener(gameController.IncrementAttempts);
             playerDeath.AddListener(uiController.UpdateAttempts);
@@ -287,6 +287,12 @@ public class PlayerAction : MonoBehaviour
             print("change color");
             backgroundPurple.FadeColor(true);
             backgroundBlue.FadeColor(false);
+        }
+        else if (collision.gameObject.layer == 17)
+        {
+            print("change color to red");
+            backgroundPurple.FadeColor(false);
+            backgroundRed.FadeColor(true);
         }
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,10 +9,18 @@ public class TutorialPause : MonoBehaviour
     public bool isPaused = false;
 
     [SerializeField] private GameObject tipUIObject;
-    
+    private AudioSource playerAudio;
+    [SerializeField] private AudioClip dingSound;
+
+    private void Start()
+    {
+        playerAudio = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
+    }
+
     //Given a string as the tip message, display the tip text on screen and pause movement.
     public void ShowTip(string message)
     {
+        playerAudio.PlayOneShot(dingSound, 1f);
         if (tipUIObject != null)
         {
             tipUIObject.SetActive(true);

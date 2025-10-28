@@ -10,7 +10,8 @@ public class BackgroundColorChanger : MonoBehaviour
     private Color targetColor;
 
     [SerializeField] private float colorChangeSpeed = 2f;
-    // Start is called before the first frame update
+    
+    //Get the spriteRenderer in the background sprite and set its alpha to 0
     void Awake()
     {
 
@@ -19,12 +20,13 @@ public class BackgroundColorChanger : MonoBehaviour
         targetColor = new Color(1, 1, 1, 0);
     }
 
-    // Update is called once per frame
+    //Gradually change transparency over time
     void Update()
     {
         spriteRenderer.color = Color.Lerp(spriteRenderer.color, targetColor, Time.deltaTime * colorChangeSpeed);
     }
 
+    //Will fade in the next background if fadeIn true, otherwise it will fade it out
     public void FadeColor(bool fadeIn)
     {
         

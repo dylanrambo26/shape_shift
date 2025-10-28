@@ -71,9 +71,11 @@ public class UIController : MonoBehaviour
         }
     }
 
-    //Go back to start menu if the return to start menu button is pressed.
+    //Go back to start menu if the return to start menu button is pressed. Unpause Movement.
     public void ReturnToStartMenu()
     {
+        MoveLeft.isPaused = false;
+        BackgroundScroller.isPaused = false;
         SceneManager.LoadScene("Title_Screen");
     }
 }

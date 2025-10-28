@@ -4,9 +4,11 @@ using UnityEngine;
 public class TipCollisionChecker : MonoBehaviour
 {
     private TutorialPause tutorialPauseScript;
+    
     private void Start()
     {
         tutorialPauseScript = GameObject.FindGameObjectWithTag("TutorialManager").GetComponent<TutorialPause>();
+        
     }
     
     //Continue tutorial after a tip when the player presses enter

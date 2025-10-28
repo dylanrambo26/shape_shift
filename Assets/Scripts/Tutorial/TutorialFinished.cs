@@ -41,9 +41,11 @@ public class TutorialFinished : MonoBehaviour
         MoveLeft.isPaused = true;
         BackgroundScroller.isPaused = true;
     }
-    //Go back to start menu if the return to start menu button is pressed.
+    //Go back to start menu if the return to start menu button is pressed. Unpause movement.
     public void ReturnToStartMenu()
     {
+        MoveLeft.isPaused = false;
+        BackgroundScroller.isPaused = false;
         SceneManager.LoadScene("Title_Screen");
     }
 }
